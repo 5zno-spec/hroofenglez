@@ -7,7 +7,6 @@
 <meta name="description" content="لعبة للأطفال تعلّم حروف الإنجليزية وأصواتها، والألوان والأرقام، بالصوت والصورة وتتبّع الحروف بالإصبع.">
 <meta name="theme-color" content="#0f0d2e">
 <link rel="preload" as="image" href="images/logo.webp" type="image/webp">
-<link rel="preload" as="image" href="images/space.webp" type="image/webp">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="canonical" href="https://englez.vercel.app/">
 <link rel="icon" type="image/png" href="images/icon-192.png">
@@ -32,7 +31,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;800&display=swap" rel="stylesheet">
 <style>
 /* Space theme. Accents are the logo's own colors: A red, B yellow, C blue. */
-:root{--space:#0f0d2e;--card:#251f66;--card2:#1c1752;--edge:rgba(131,206,229,.24);--ink:#fff6e6;--muted:rgba(255,246,230,.68);
+:root{--skybg:radial-gradient(ellipse 70% 45% at 72% 28%,rgba(120,70,200,.26),transparent 70%),radial-gradient(ellipse 55% 40% at 18% 72%,rgba(70,150,210,.14),transparent 70%),radial-gradient(ellipse 45% 30% at 88% 92%,rgba(240,95,110,.12),transparent 70%),linear-gradient(180deg,#0b0a26 0%,#17114a 50%,#0b0a28 100%);--space:#0f0d2e;--card:#251f66;--card2:#1c1752;--edge:rgba(131,206,229,.24);--ink:#fff6e6;--muted:rgba(255,246,230,.68);
 --on:#1c1650;--sun:#ffd366;--sun-deep:#d39a2c;--sky:#83cee5;--sky-deep:#3f93b5;--coral:#f66155;--coral-deep:#b8382f;--grass:#7ad87f;
 --shadow:#07061a;--guide:rgba(255,246,230,.2);color-scheme:dark;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--space)}
@@ -40,10 +39,9 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;min-height:100vh;color:var(--ink);font-family:"Baloo Bhaijaan 2","Segoe UI",Tahoma,sans-serif;display:flex;justify-content:center;background:transparent}
 /* Starfield: three tiled layers of dots at different sizes, one of them twinkling */
-.sky{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:var(--space) url(images/space.webp) center/cover no-repeat}
+.sky{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:var(--skybg)}
 .sky i{position:absolute;inset:-50px;background-repeat:repeat}
-.sky .s2{background-image:radial-gradient(2px 2px at 30px 50px,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 190px 170px,#ffe9b0 50%,transparent 51%),radial-gradient(2px 2px at 120px 230px,#cfeaff 50%,transparent 51%);background-size:521px 547px;animation:twinkle 3.5s ease-in-out infinite alternate}
-@keyframes twinkle{from{opacity:.12}to{opacity:.5}}
+.sky .s2{background-image:radial-gradient(1.6px 1.6px at 90px 120px,rgba(255,255,255,.7) 50%,transparent 51%),radial-gradient(1.2px 1.2px at 430px 300px,rgba(207,234,255,.55) 50%,transparent 51%),radial-gradient(1.4px 1.4px at 250px 560px,rgba(255,233,176,.55) 50%,transparent 51%);background-size:620px 680px}
 /* Ringed planet resting in a corner */
 .sky .planet{inset:auto;right:-60px;bottom:-30px;width:210px;height:210px;border-radius:50%;
 background:radial-gradient(circle at 34% 30%,#ffb3a9 0%,var(--coral) 38%,#9b2e3d 100%);box-shadow:inset -22px -16px 44px rgba(15,13,46,.6),0 0 50px rgba(246,97,85,.2);opacity:.6}
@@ -114,7 +112,7 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 .pb{position:fixed;z-index:60;pointer-events:none;transform:translate(-50%,-100%);background:var(--card);color:var(--ink);border:3px solid var(--sun);border-radius:99px;padding:6px 18px;font-size:1.5rem;font-weight:800;box-shadow:0 4px 0 var(--shadow),0 0 20px rgba(255,211,102,.4);white-space:nowrap;animation:rise 2.2s ease-out both}
 @keyframes rise{0%{opacity:0;margin-top:24px;transform:translate(-50%,-100%) scale(.5)}15%{opacity:1;transform:translate(-50%,-100%) scale(1.1)}80%{opacity:1}100%{opacity:0;margin-top:-80px;transform:translate(-50%,-100%) scale(1)}}
 /* Splash */
-#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--space) url(images/space.webp) center/cover no-repeat;transition:opacity .5s ease,visibility .5s}
+#splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--skybg);transition:opacity .5s ease,visibility .5s}
 #splash.out{opacity:0;visibility:hidden}
 #splash .logo{width:min(78vw,380px);height:auto;filter:drop-shadow(0 0 28px rgba(131,206,229,.35));animation:logoIn 1s cubic-bezier(.34,1.56,.64,1) both,logoFloat 2.6s ease-in-out 1s infinite}
 @keyframes logoIn{0%{opacity:0;transform:translateY(-60px) scale(.35) rotate(-8deg)}60%{opacity:1;transform:translateY(8px) scale(1.06) rotate(2deg)}100%{transform:none}}
