@@ -1,0 +1,18 @@
+{
+  "name": "أهلًا ABC",
+  "short_name": "أهلًا ABC",
+  "description": "لعبة للأطفال تعلّم حروف الإنجليزية وأصواتها، والألوان والأرقام.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0d2e",
+  "theme_color": "#0f0d2e",
+  "icons": [
+    {"src": "images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "images/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
