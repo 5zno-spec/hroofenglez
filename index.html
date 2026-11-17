@@ -28,6 +28,8 @@
 <meta name="twitter:description" content="لعبة للأطفال تعلّم حروف الإنجليزية وأصواتها، والألوان والأرقام، بالصوت والصورة وتتبّع الحروف بالإصبع.">
 <meta name="twitter:image" content="https://englez.vercel.app/images/og.jpg">
 <meta name="twitter:image:alt" content="شعار أهلًا ABC: حروف A وB وC مبتسمة وتحتها كلمة أهلًا">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;800&display=swap" rel="stylesheet">
 <style>
 /* Space theme. Accents are the logo's own colors: A red, B yellow, C blue. */
@@ -48,8 +50,8 @@ background:radial-gradient(circle at 34% 30%,#ffb3a9 0%,var(--coral) 38%,#9b2e3d
 .sky .planet::after{content:"";position:absolute;left:-52px;right:-52px;top:50%;height:52px;margin-top:-26px;border-radius:50%;border:7px solid rgba(255,211,102,.75);transform:rotate(-18deg);border-top-color:transparent}
 .sky .moon{inset:auto;left:-18px;top:30vh;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e9f7fc,var(--sky) 55%,#3f7f9f);box-shadow:inset -8px -6px 16px rgba(15,13,46,.5),0 0 24px rgba(131,206,229,.25);opacity:.55}
 /* A shooting star now and then */
-.sky .comet{inset:auto;top:12vh;left:110%;width:120px;height:2px;border-radius:2px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0));transform:rotate(-24deg);animation:comet 11s linear 3s infinite;opacity:0}
-@keyframes comet{0%{left:110%;top:8vh;opacity:0}2%{opacity:1}9%{left:-30%;top:34vh;opacity:0}100%{left:-30%;top:34vh;opacity:0}}
+.sky .comet{inset:auto;top:8vh;left:0;width:120px;height:2px;border-radius:2px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0));opacity:0;will-change:transform,opacity;animation:comet 11s linear 3s infinite}
+@keyframes comet{0%{transform:translate(110vw,0) rotate(-24deg);opacity:0}2%{opacity:1}9%{transform:translate(-30vw,26vh) rotate(-24deg);opacity:0}100%{transform:translate(-30vw,26vh) rotate(-24deg);opacity:0}}
 main{position:relative;width:100%;max-width:560px;padding:16px;display:flex;flex-direction:column;gap:14px}
 h1{margin:0;font-size:1.7rem;font-weight:800}
 .top{display:flex;align-items:center;justify-content:space-between;min-height:48px}
@@ -59,19 +61,11 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
 button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 .cat{display:flex;align-items:center;gap:14px;width:100%;padding:12px 16px;border-radius:26px;background:linear-gradient(180deg,var(--card),var(--card2));border:2px solid var(--edge);box-shadow:0 6px 0 var(--shadow);font-size:1.5rem;font-weight:800;text-align:start}
 .cat:active,.opt:active,.btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--shadow)}
-/* Each category icon sits on its own little planet, cycling the logo's three colors */
-.cat .ic{position:relative;flex:none;display:grid;place-items:center;width:62px;height:62px;border-radius:50%;font-size:2rem;
---p1:#ffb3a9;--p2:var(--coral);--p3:#9b2e3d;background:radial-gradient(circle at 32% 28%,var(--p1),var(--p2) 45%,var(--p3));box-shadow:inset -6px -6px 12px rgba(15,13,46,.45),0 0 18px rgba(255,255,255,.08)}
-.cat .ic::after{content:"";position:absolute;left:-9px;right:-9px;top:50%;height:16px;margin-top:-8px;border-radius:50%;border:3px solid rgba(255,246,230,.55);border-top-color:transparent;transform:rotate(-16deg)}
-#cats .cat:nth-child(3n+2) .ic{--p1:#fff0bf;--p2:var(--sun);--p3:#b07a14}
-#cats .cat:nth-child(3n+3) .ic{--p1:#e9f7fc;--p2:var(--sky);--p3:#2f6f8f}
 .cat small{display:block;font-size:.95rem;font-weight:500;color:var(--muted)}
 .stars{font-size:1.2rem;font-weight:800;background:var(--card2);border:2px solid rgba(255,211,102,.45);padding:4px 14px;border-radius:99px;box-shadow:0 0 16px rgba(255,211,102,.18)}
 .btn{background:var(--sun);color:var(--on);border-radius:99px;padding:10px 26px;font-size:1.3rem;font-weight:800;box-shadow:0 5px 0 var(--sun-deep),0 0 22px rgba(255,211,102,.3)}
 .back{background:var(--card2);border:2px solid var(--edge);border-radius:99px;padding:5px 16px;font-weight:800;box-shadow:0 3px 0 var(--shadow)}
 .word{display:flex;flex-direction:column;align-items:center;gap:6px}
-.say{width:120px;height:120px;border-radius:50%;font-size:3.4rem;background:radial-gradient(circle at 32% 28%,#e9f7fc,var(--sky) 50%,#3a86a8);box-shadow:inset -8px -8px 16px rgba(15,13,46,.35),0 7px 0 var(--sky-deep),0 0 0 10px rgba(131,206,229,.12),0 0 40px rgba(131,206,229,.35)}
-.say:active{transform:translateY(5px);box-shadow:inset -8px -8px 16px rgba(15,13,46,.35),0 2px 0 var(--sky-deep),0 0 0 10px rgba(131,206,229,.12)}
 .opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .opt{aspect-ratio:1;border-radius:26px;background:linear-gradient(180deg,var(--card),var(--card2));border:2px solid var(--edge);box-shadow:0 6px 0 var(--shadow);font-size:4rem;display:flex;align-items:center;justify-content:center}
 .opt .sw{width:64%;height:64%;border-radius:50%;border:4px solid rgba(255,255,255,.35)}
@@ -106,9 +100,7 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 .board button:active{transform:translateY(3px)}
 .board button.now{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral),0 0 24px rgba(246,97,85,.6);transform:scale(1.07)}
 #bplay{align-self:center;width:76px;height:76px;padding:0;border-radius:50%;font-size:2.2rem;line-height:1;display:flex;align-items:center;justify-content:center}
-#semoji img{max-width:none}
 #semoji:has(img){display:inline-block;padding:10px 14px 4px;margin:6px auto 2px;border-radius:28px;background:radial-gradient(circle at 50% 35%,#ffffff,#e6e0ff);box-shadow:0 0 0 5px rgba(131,206,229,.35),0 0 30px rgba(131,206,229,.35)}
-.stbig{font-size:6.5rem;font-weight:800;direction:ltr;line-height:1.1}
 .pb{position:fixed;z-index:60;pointer-events:none;transform:translate(-50%,-100%);background:var(--card);color:var(--ink);border:3px solid var(--sun);border-radius:99px;padding:6px 18px;font-size:1.5rem;font-weight:800;box-shadow:0 4px 0 var(--shadow),0 0 20px rgba(255,211,102,.4);white-space:nowrap;animation:rise 2.2s ease-out both}
 @keyframes rise{0%{opacity:0;margin-top:24px;transform:translate(-50%,-100%) scale(.5)}15%{opacity:1;transform:translate(-50%,-100%) scale(1.1)}80%{opacity:1}100%{opacity:0;margin-top:-80px;transform:translate(-50%,-100%) scale(1)}}
 /* Splash */
@@ -124,28 +116,16 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 #home .top{justify-content:flex-end}
 /* Letter page: quiz · listen · trace */
 .acts{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:4px}
-.acts .say{width:96px;height:96px;font-size:2.6rem}
-.rb{position:relative;width:72px;height:72px;border-radius:50%;font-size:2rem;display:grid;place-items:center;
---p1:#fff0bf;--p2:var(--sun);--p3:#b07a14;background:radial-gradient(circle at 32% 28%,var(--p1),var(--p2) 48%,var(--p3));
-box-shadow:inset -6px -6px 12px rgba(15,13,46,.35),0 5px 0 var(--shadow),0 0 24px rgba(255,211,102,.3)}
-.rb.tr{--p1:#ffb3a9;--p2:var(--coral);--p3:#9b2e3d;box-shadow:inset -6px -6px 12px rgba(15,13,46,.35),0 5px 0 var(--shadow),0 0 24px rgba(246,97,85,.3)}
-.rb:active{transform:translateY(4px);box-shadow:inset -6px -6px 12px rgba(15,13,46,.35),0 1px 0 var(--shadow)}
 /* Home: full-width game buttons */
 #cats{display:flex;flex-direction:column;gap:12px}
 #cats .cat{flex-direction:row;align-items:center;gap:16px;padding:12px 18px;font-size:1.4rem;line-height:1.2;border-radius:24px;
 transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease}
 #cats .cat .nm{flex:1}
 #cats .cat .ic{width:58px;height:58px;font-size:1.75rem;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
-#cats .cat .ic::after{transition:transform .35s ease}
 #cats .cat small{display:inline-block;direction:ltr;font-size:.9rem;font-weight:800;color:var(--sun);background:rgba(15,13,46,.45);padding:2px 12px;border-radius:99px}
-#cats .cat:nth-child(3n+1) .ic{--p1:#ffb3a9;--p2:var(--coral);--p3:#9b2e3d}
-#cats .cat:nth-child(3n+2) .ic{--p1:#fff0bf;--p2:var(--sun);--p3:#b07a14}
-#cats .cat:nth-child(3n+3) .ic{--p1:#e9f7fc;--p2:var(--sky);--p3:#2f6f8f}
 /* Mouse hover and keyboard focus: the button lifts and glows, its planet tilts and its ring swings */
 @media (hover:hover){
 #cats .cat:hover{transform:translateY(-3px);border-color:rgba(131,206,229,.65);background:linear-gradient(180deg,#2e2780,#211b5e);box-shadow:0 9px 0 var(--shadow),0 0 28px rgba(131,206,229,.3)}
-#cats .cat:hover .ic{transform:scale(1.12) rotate(-10deg)}
-#cats .cat:hover .ic::after{transform:rotate(8deg)}
 .opt,.board button,.back,.btn,.say,.rb{transition:transform .2s ease,border-color .2s ease,filter .2s ease,box-shadow .2s ease}
 .opt:hover,.board button:not(.now):hover{transform:translateY(-3px);border-color:rgba(131,206,229,.65)}
 .back:hover{border-color:rgba(131,206,229,.65)}
@@ -159,10 +139,41 @@ transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,backgrou
 /* A light sweep clipped to the logo's own shape */
 .hero .shine{position:absolute;inset:0;pointer-events:none;
 -webkit-mask:url(images/logo.webp) center/100% 100% no-repeat;mask:url(images/logo.webp) center/100% 100% no-repeat;
-background:linear-gradient(110deg,transparent 46.5%,rgba(255,255,255,.35) 48.6%,rgba(255,255,255,.7) 50%,rgba(255,255,255,.35) 51.4%,transparent 53.5%) no-repeat;
-background-size:400% 100%;background-position:78% 0;animation:shine 4.5s ease-in-out .6s infinite}
-@keyframes shine{0%{background-position:78% 0}32%,100%{background-position:22% 0}}
+overflow:hidden}
+.hero .shine::before{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;will-change:transform;
+background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.35) 42%,rgba(255,255,255,.7) 50%,rgba(255,255,255,.35) 58%,transparent 80%);
+transform:translateX(-120%);animation:shine 4.5s ease-in-out .6s infinite}
+@keyframes shine{0%{transform:translateX(-120%)}32%,100%{transform:translateX(270%)}}
 .hide{display:none!important}
+/* One speaker button for the whole game: same shape, icon, colour and size */
+button.say.say{width:84px;height:84px;padding:0;display:grid;place-items:center;border:0;border-radius:36%;
+background:linear-gradient(180deg,#a3dcee,var(--sky));color:#1c1650;font-size:0;
+box-shadow:0 6px 0 var(--sky-deep),inset 0 -6px 0 rgba(63,147,181,.25)}
+button.say.say:active{transform:translateY(4px);box-shadow:0 2px 0 var(--sky-deep),inset 0 -6px 0 rgba(63,147,181,.25)}
+button.say.say svg{display:block;width:58%;height:58%}
+.word{gap:14px}
+/* Drawings built by pic(): sized in em, centred crops */
+.pf{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:0;direction:ltr}
+.pf .pc{display:block;overflow:hidden;flex:none}
+.pf .pc img{display:block;max-width:none}
+.apic,.opic{container-type:size}
+.apic .pf,.opic .pf{font-size:min(1cqh,calc(1cqw / var(--ar)))!important}
+.split #semoji{container-type:inline-size}
+.split #semoji>.pf{font-size:min(2.1px,calc(1cqw / var(--ar)))!important}
+/* Animals */
+#cats .cat.cat:nth-child(4) .ic{--tile:var(--grass);--glyph:#1c1650}
+.board.animals button{aspect-ratio:1;height:auto;padding:6%;align-items:center;justify-content:center;background:#fff;border-color:#fff;box-shadow:0 4px 0 rgba(7,6,26,.55)}
+.board.animals .apic{display:grid;place-items:center;width:100%;height:100%}
+.board.animals button.done{border-color:var(--grass);box-shadow:0 4px 0 rgba(7,6,26,.55),0 0 0 3px var(--grass)}
+.board.animals button.now{border-color:var(--coral)}
+.board.animals button.done::after{top:5px;left:auto;right:5px;transform:none}
+.opic,.apanel,.lend-ap{display:inline-grid;place-items:center;border-radius:18px;background:radial-gradient(circle at 50% 35%,#ffffff,#e6e0ff)}
+.opic{width:100%;height:100%;background:none}
+.opt.picopt{background:#fff;border-color:#fff;padding:6%}
+.opt.picopt.ok{background:#fff;border-color:var(--grass);box-shadow:0 6px 0 var(--shadow),0 0 0 4px var(--grass),0 0 26px rgba(122,216,127,.5)}
+
+.apanel{padding:8px 14px;margin-bottom:6px}
+.lend-ap{padding:6px 10px;vertical-align:middle}
 .bigsw{display:inline-block;width:110px;height:110px;border-radius:50%;border:5px solid rgba(255,255,255,.4);margin:4px 0 6px}
 .opt .lt.cwd{font-size:clamp(1.2rem,6vw,1.7rem)}
 .lend-sw{display:inline-block;width:62px;height:62px;border-radius:50%;border:4px solid rgba(255,255,255,.4);vertical-align:middle}
@@ -213,20 +224,20 @@ background-size:400% 100%;background-position:78% 0;animation:shine 4.5s ease-in
 /* Letter card: one half for the letter, one half for its picture */
 .split{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;padding:14px 10px;gap:0}
 .split .half{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;padding:4px 8px}
-.split .picture{border-inline-start:2px dashed var(--edge)}
-.split .cases{gap:10px;align-items:flex-end}
+.split .picture{border-inline-end:2px dashed var(--edge)}
+.split .cases{direction:ltr;flex-direction:row;align-items:baseline}
+.split .cbox small{display:none}
+.split .cases{gap:10px;align-items:baseline}
 .split .cbox small{font-size:.85rem}
 .split .cbox.up b{font-size:clamp(4.6rem,25vw,8rem)}
 .split .cbox.lo b{font-size:clamp(2.6rem,12.5vw,4.2rem)}
 .split #semoji{font-size:4rem;line-height:1.1}
 .split #semoji:has(img){display:block;width:100%;max-width:210px;margin:0 auto;padding:6px}
-.split #semoji>span{width:100%!important;height:auto!important;display:block!important}
-.split #semoji>span>img{width:100%!important;height:auto!important}
 .split #sar{font-size:1.25rem;margin-top:6px;text-align:center}
 .split #sword:empty{display:none}
 /* Letter page: three equal buttons, sound first */
 .acts{gap:18px}
-.acts .say,.acts .rb{position:relative;width:84px;height:84px}
+.acts .rb{position:relative;width:84px;height:84px}
 .tick{position:absolute;top:-7px;left:-7px;width:26px;height:26px;border-radius:50%;background:var(--card2);border:2px solid var(--edge);display:none}
 .did .tick{display:grid;place-items:center;background:var(--grass);border-color:var(--grass)}
 .did .tick::after{content:"";width:12px;height:7px;border:3px solid #1c1650;border-top:0;border-right:0;transform:translateY(-2px) rotate(-45deg)}
@@ -236,23 +247,17 @@ background-size:400% 100%;background-position:78% 0;animation:shine 4.5s ease-in
 .nudge{animation:nudge .5s}
 @keyframes nudge{20%{transform:translateY(-8px) rotate(-6deg)}40%{transform:translateY(0) rotate(5deg)}60%{transform:translateY(-4px) rotate(-3deg)}80%{transform:none}}
 /* Flat icons, each centered on a rounded-square tile */
-.cat .ic,#cats .cat .ic{width:58px;height:58px;border-radius:30%;background:var(--tile,var(--coral));color:var(--glyph,#fff6e6);box-shadow:none;font-size:0}
-.cat .ic::after{display:none}
+.cat .ic,#cats .cat .ic{position:relative;flex:none;display:grid;place-items:center;width:58px;height:58px;border-radius:30%;background:var(--tile,var(--coral));color:var(--glyph,#fff6e6);box-shadow:none;font-size:0}
 #cats .cat:nth-child(3n+1) .ic{--tile:var(--coral);--glyph:#fff6e6}
 #cats .cat:nth-child(3n+2) .ic{--tile:var(--sun);--glyph:#1c1650}
 #cats .cat:nth-child(3n+3) .ic{--tile:var(--sky);--glyph:#1c1650}
-.ic svg,.say svg,.rb svg{display:block;width:62%;height:62%}
+.ic svg,.rb svg{display:block;width:62%;height:62%}
 @media (hover:hover){#cats .cat:hover .ic{transform:scale(1.08) rotate(-6deg)}}
-.say{display:grid;place-items:center;width:112px;height:112px;border-radius:30%;background:var(--sky);color:#1c1650;box-shadow:0 6px 0 var(--sky-deep)}
-.say:active{transform:translateY(4px);box-shadow:0 2px 0 var(--sky-deep)}
-.acts .say{width:84px;height:84px}
-.rb{width:76px;height:76px;border-radius:30%;background:var(--tile);color:var(--glyph);box-shadow:0 5px 0 var(--tile-deep)}
+.rb{display:grid;place-items:center;width:76px;height:76px;border-radius:30%;background:var(--tile);color:var(--glyph);box-shadow:0 5px 0 var(--tile-deep)}
 .rb.quiz{--tile:var(--sun);--tile-deep:var(--sun-deep);--glyph:#1c1650}
 .rb.tr{--tile:var(--coral);--tile-deep:var(--coral-deep);--glyph:#fff6e6;box-shadow:0 5px 0 var(--tile-deep)}
 .rb:active{transform:translateY(4px);box-shadow:0 1px 0 var(--tile-deep)}
 #bplay{border-radius:30%}
-.back.mini{display:inline-grid;place-items:center;padding:4px 12px}
-.back.mini svg{display:block;width:24px;height:24px}
 .stars{direction:ltr;display:inline-flex;align-items:center;gap:6px}
 .stars::before,.st{content:"";display:inline-block;width:1.05em;height:1.05em;background:var(--sun);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 16.9l-5.6 2.9 1.1-6.2L3 9.2l6.2-.9z' fill='%23000' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 16.9l-5.6 2.9 1.1-6.2L3 9.2l6.2-.9z' fill='%23000' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 .st{width:.95em;height:.95em;margin-inline-end:5px;vertical-align:-.13em}
@@ -300,8 +305,8 @@ background-size:400% 100%;background-position:78% 0;animation:shine 4.5s ease-in
   <div class="top"><button class="back ib" id="back" data-ic="back" aria-label="رجوع" title="رجوع"></button><span class="stars" id="rstars">0</span></div>
   <div class="dots" id="dots"></div>
   <div class="word">
-    <button class="say" id="say" data-ic="speaker" aria-label="استمع إلى الكلمة"></button>
     <div class="bubble" id="msg">اضغط على السماعة، ثم اختر الصورة الصحيحة</div>
+    <button class="say" id="say" data-ic="speaker" aria-label="استمع"></button>
   </div>
   <div class="opts" id="opts"></div>
 </section>
@@ -317,8 +322,8 @@ background-size:400% 100%;background-position:78% 0;animation:shine 4.5s ease-in
 <section id="study" class="hide" style="display:flex;flex-direction:column;gap:14px">
   <div class="top"><button class="back ib" id="sback" data-ic="board" aria-label="لوحة الحروف" title="لوحة الحروف"></button></div>
   <div class="bubble split">
-    <div class="half letters"><div class="cases"><div class="cbox up"><small>الكبير</small><b id="sup"></b></div><div class="cbox lo"><small>الصغير</small><b id="slo"></b></div></div></div>
     <div class="half picture"><div id="semoji"></div><div class="big" id="sword"></div><div id="sar"></div></div>
+    <div class="half letters"><div class="cases"><div class="cbox up"><small>الكبير</small><b id="sup"></b></div><div class="cbox lo"><small>الصغير</small><b id="slo"></b></div></div></div>
   </div>
   <div class="acts">
     <button class="say" id="ssay" data-ic="speaker" aria-label="استمع" title="استمع"></button>
@@ -333,7 +338,7 @@ background-size:400% 100%;background-position:78% 0;animation:shine 4.5s ease-in
   <div class="top"><button class="back ib" id="tback" data-ic="back" aria-label="رجوع" title="رجوع"></button><span class="stars" id="tinfo"></span></div>
   <div class="bubble" id="tmsg"></div>
   <div class="pad"><canvas id="g" width="360" height="360"></canvas><canvas id="cv" width="360" height="360"></canvas></div>
-  <div class="row"><button class="back mini" id="tsay" data-ic="speaker" aria-label="استمع"></button><button class="back" id="tclr">امسح</button></div>
+  <div class="row"><button class="say" id="tsay" data-ic="speaker" aria-label="استمع"></button><button class="back" id="tclr">امسح</button></div>
 </section>
 
 <!-- End -->
@@ -352,7 +357,11 @@ const AUDIO={"A": "audio/A.mp3", "B": "audio/B.mp3", "C": "audio/C.mp3", "D": "a
 const NUMAUDIO={"one": "audio/numbers/one.mp3", "two": "audio/numbers/two.mp3", "three": "audio/numbers/three.mp3", "four": "audio/numbers/four.mp3", "five": "audio/numbers/five.mp3", "six": "audio/numbers/six.mp3", "seven": "audio/numbers/seven.mp3", "eight": "audio/numbers/eight.mp3", "nine": "audio/numbers/nine.mp3", "ten": "audio/numbers/ten.mp3"};
 const WORDAUDIO={"A": "audio/words/apple.mp3", "B": "audio/words/ball.mp3", "C": "audio/words/cat.mp3", "D": "audio/words/dog.mp3", "E": "audio/words/egg.mp3", "F": "audio/words/fish.mp3", "P": "audio/words/pen.mp3", "G": "audio/words/goat.mp3", "H": "audio/words/horse.mp3", "I": "audio/words/insect.mp3", "J": "audio/words/jacket.mp3", "K": "audio/words/key.mp3", "L": "audio/words/lion.mp3", "M": "audio/words/moon.mp3", "N": "audio/words/nest.mp3", "O": "audio/words/orange.mp3", "Q": "audio/words/queen.mp3", "R": "audio/words/rabbit.mp3", "S": "audio/words/sun.mp3", "T": "audio/words/tree.mp3", "U": "audio/words/uniform.mp3", "V": "audio/words/vase.mp3", "W": "audio/words/watch.mp3", "X": "audio/words/fox.mp3", "Y": "audio/words/yak.mp3", "Z": "audio/words/zebra.mp3"};
 const COLORAUDIO={red:'audio/colors/red.mp3',blue:'audio/colors/blue.mp3',yellow:'audio/colors/yellow.mp3',green:'audio/colors/green.mp3',orange:'audio/colors/orange.mp3',pink:'audio/colors/pink.mp3',black:'audio/colors/black.mp3',white:'audio/colors/white.mp3'};
-const PICS={"A": {"s": "images/apple.webp", "w": 239, "h": 400, "pf": 0.7824}, "B": {"s": "images/ball.webp", "w": 302, "h": 400, "pf": 0.8043}, "C": {"s": "images/cat.webp", "w": 247, "h": 400, "pf": 0.8072}, "D": {"s": "images/dog.webp", "w": 243, "h": 400, "pf": 0.7691}, "E": {"s": "images/egg.webp", "w": 222, "h": 400, "pf": 0.774}, "F": {"s": "images/fish.webp", "w": 326, "h": 400, "pf": 0.8}, "G": {"s": "images/goat.webp", "w": 269, "h": 400, "pf": 0.8229}, "H": {"s": "images/horse.webp", "w": 273, "h": 400, "pf": 0.8281}, "I": {"s": "images/insect.webp", "w": 301, "h": 400, "pf": 0.833}, "J": {"s": "images/jacket.webp", "w": 309, "h": 400, "pf": 0.8272}, "K": {"s": "images/key.webp", "w": 136, "h": 400, "pf": 0.8}, "L": {"s": "images/lion.webp", "w": 295, "h": 400, "pf": 0.8373}, "M": {"s": "images/moon.webp", "w": 295, "h": 400, "pf": 0.8374}, "N": {"s": "images/nest.webp", "w": 394, "h": 400, "pf": 0.8088}, "O": {"s": "images/orange.webp", "w": 256, "h": 400, "pf": 0.8038}, "P": {"s": "images/pen.webp", "w": 188, "h": 400, "pf": 0.8374}, "Q": {"s": "images/queen.webp", "w": 189, "h": 400, "pf": 0.8256}, "R": {"s": "images/rabbit.webp", "w": 219, "h": 400, "pf": 0.8423}, "S": {"s": "images/sun.webp", "w": 301, "h": 400, "pf": 0.8402}, "T": {"s": "images/tree.webp", "w": 269, "h": 400, "pf": 0.8468}, "U": {"s": "images/uniform.webp", "w": 274, "h": 400, "pf": 0.8473}, "V": {"s": "images/vase.webp", "w": 192, "h": 400, "pf": 0.8435}, "W": {"s": "images/watch.webp", "w": 220, "h": 400, "pf": 0.8366}, "X": {"s": "images/fox.webp", "w": 232, "h": 400, "pf": 0.8394}, "Y": {"s": "images/yak.webp", "w": 367, "h": 400, "pf": 0.8371}, "Z": {"s": "images/zebra.webp", "w": 264, "h": 400, "pf": 0.846}};
+const APICS={"mouse": {"s": "images/animals/mouse.webp", "w": 252, "h": 400, "pf": 0.7788, "pb": [14, 237], "wb": [10, 339, 241, 394], "t": "images/thumbs/mouse.webp"}, "bear": {"s": "images/animals/bear.webp", "w": 243, "h": 400, "pf": 0.7775, "pb": [11, 232], "wb": [31, 337, 210, 393], "t": "images/thumbs/bear.webp"}, "tiger": {"s": "images/animals/tiger.webp", "w": 283, "h": 400, "pf": 0.76, "pb": [12, 271], "wb": [45, 323, 238, 394], "t": "images/thumbs/tiger.webp"}, "giraffe": {"s": "images/animals/giraffe.webp", "w": 287, "h": 400, "pf": 0.7762, "pb": [59, 226], "wb": [11, 337, 277, 394], "t": "images/thumbs/giraffe.webp"}, "duck": {"s": "images/animals/duck.webp", "w": 199, "h": 400, "pf": 0.7775, "pb": [11, 188], "wb": [15, 338, 182, 394], "t": "images/thumbs/duck.webp"}, "chicken": {"s": "images/animals/chicken.webp", "w": 296, "h": 400, "pf": 0.7775, "pb": [36, 259], "wb": [10, 337, 285, 394], "t": "images/thumbs/chicken.webp"}, "elephant": {"s": "images/animals/elephant.webp", "w": 350, "h": 400, "pf": 0.7575, "pb": [11, 338], "wb": [24, 322, 325, 394], "t": "images/thumbs/elephant.webp"}, "monkey": {"s": "images/animals/monkey.webp", "w": 297, "h": 400, "pf": 0.7588, "pb": [11, 286], "wb": [16, 323, 280, 394], "t": "images/thumbs/monkey.webp"}, "camel": {"s": "images/animals/camel.webp", "w": 312, "h": 400, "pf": 0.7725, "pb": [12, 301], "wb": [52, 334, 261, 394], "t": "images/thumbs/camel.webp"}, "bird": {"s": "images/animals/bird.webp", "w": 392, "h": 400, "pf": 0.7575, "pb": [13, 379], "wb": [126, 334, 267, 394], "t": "images/thumbs/bird.webp"}, "sheep": {"s": "images/animals/sheep.webp", "w": 267, "h": 400, "pf": 0.7575, "pb": [12, 255], "wb": [26, 321, 241, 394], "t": "images/thumbs/sheep.webp"}, "cow": {"s": "images/animals/cow.webp", "w": 385, "h": 400, "pf": 0.7762, "pb": [12, 373], "wb": [120, 336, 263, 394], "t": "images/thumbs/cow.webp"}};
+// Animals: [word, Arabic, picture key (a letter picture or an animal picture)]
+const ANI=[['cat','قطة','C'],['dog','كلب','D'],['bird','طائر','bird'],['fish','سمكة','F'],['duck','بطة','duck'],['chicken','دجاجة','chicken'],['cow','بقرة','cow'],['sheep','خروف','sheep'],['goat','ماعز','G'],['horse','حصان','H'],['camel','جمل','camel'],['rabbit','أرنب','R'],['mouse','فأر','mouse'],['monkey','قرد','monkey'],['bear','دب','bear'],['lion','أسد','L'],['tiger','نمر','tiger'],['elephant','فيل','elephant'],['giraffe','زرافة','giraffe'],['zebra','حمار وحشي','Z'],['fox','ثعلب','X'],['yak','ثور الياك','Y']];
+const ANIAUDIO=Object.fromEntries(ANI.map(([w,ar,k])=>[w,k.length===1?'audio/words/'+w+'.mp3':'audio/animals/'+w+'.mp3']));
+const PICS={"A": {"s": "images/apple.webp", "w": 239, "h": 400, "pf": 0.7824, "pb": [5, 234], "wb": [23, 315, 219, 395]}, "B": {"s": "images/ball.webp", "w": 302, "h": 400, "pf": 0.8043, "pb": [5, 296], "wb": [85, 324, 220, 395]}, "C": {"s": "images/cat.webp", "w": 247, "h": 400, "pf": 0.8072, "pb": [5, 242], "wb": [39, 326, 172, 394], "t": "images/thumbs/cat.webp"}, "D": {"s": "images/dog.webp", "w": 243, "h": 400, "pf": 0.7691, "pb": [5, 238], "wb": [55, 310, 195, 395], "t": "images/thumbs/dog.webp"}, "E": {"s": "images/egg.webp", "w": 222, "h": 400, "pf": 0.774, "pb": [5, 218], "wb": [50, 312, 175, 395]}, "F": {"s": "images/fish.webp", "w": 326, "h": 400, "pf": 0.8, "pb": [5, 320], "wb": [83, 323, 240, 395], "t": "images/thumbs/fish.webp"}, "G": {"s": "images/goat.webp", "w": 269, "h": 400, "pf": 0.8229, "pb": [6, 263], "wb": [70, 332, 238, 395], "t": "images/thumbs/goat.webp"}, "H": {"s": "images/horse.webp", "w": 273, "h": 400, "pf": 0.8281, "pb": [6, 267], "wb": [36, 334, 244, 395], "t": "images/thumbs/horse.webp"}, "I": {"s": "images/insect.webp", "w": 301, "h": 400, "pf": 0.833, "pb": [6, 295], "wb": [47, 336, 266, 394]}, "J": {"s": "images/jacket.webp", "w": 309, "h": 400, "pf": 0.8272, "pb": [5, 304], "wb": [43, 334, 267, 395]}, "K": {"s": "images/key.webp", "w": 136, "h": 400, "pf": 0.8, "pb": [5, 130], "wb": [21, 323, 131, 395]}, "L": {"s": "images/lion.webp", "w": 295, "h": 400, "pf": 0.8373, "pb": [6, 289], "wb": [90, 338, 221, 395], "t": "images/thumbs/lion.webp"}, "M": {"s": "images/moon.webp", "w": 295, "h": 400, "pf": 0.8374, "pb": [5, 289], "wb": [66, 338, 227, 394]}, "N": {"s": "images/nest.webp", "w": 394, "h": 400, "pf": 0.8088, "pb": [6, 387], "wb": [117, 327, 285, 393]}, "O": {"s": "images/orange.webp", "w": 256, "h": 400, "pf": 0.8038, "pb": [5, 250], "wb": [20, 325, 240, 394]}, "P": {"s": "images/pen.webp", "w": 188, "h": 400, "pf": 0.8374, "pb": [6, 182], "wb": [34, 338, 138, 394]}, "Q": {"s": "images/queen.webp", "w": 189, "h": 400, "pf": 0.8256, "pb": [16, 171], "wb": [5, 333, 184, 395]}, "R": {"s": "images/rabbit.webp", "w": 219, "h": 400, "pf": 0.8423, "pb": [5, 213], "wb": [20, 340, 214, 395], "t": "images/thumbs/rabbit.webp"}, "S": {"s": "images/sun.webp", "w": 301, "h": 400, "pf": 0.8402, "pb": [6, 295], "wb": [92, 339, 211, 395]}, "T": {"s": "images/tree.webp", "w": 269, "h": 400, "pf": 0.8468, "pb": [5, 264], "wb": [61, 341, 212, 395]}, "U": {"s": "images/uniform.webp", "w": 274, "h": 400, "pf": 0.8473, "pb": [5, 269], "wb": [15, 342, 261, 395]}, "V": {"s": "images/vase.webp", "w": 192, "h": 400, "pf": 0.8435, "pb": [6, 186], "wb": [20, 341, 172, 394]}, "W": {"s": "images/watch.webp", "w": 220, "h": 400, "pf": 0.8366, "pb": [19, 206], "wb": [5, 338, 215, 394]}, "X": {"s": "images/fox.webp", "w": 232, "h": 400, "pf": 0.8394, "pb": [5, 227], "wb": [74, 339, 184, 394], "t": "images/thumbs/fox.webp"}, "Y": {"s": "images/yak.webp", "w": 367, "h": 400, "pf": 0.8371, "pb": [6, 361], "wb": [131, 338, 247, 395], "t": "images/thumbs/yak.webp"}, "Z": {"s": "images/zebra.webp", "w": 264, "h": 400, "pf": 0.846, "pb": [6, 259], "wb": [44, 341, 223, 394], "t": "images/thumbs/zebra.webp"}};
 const LW=[['A','Apple','تفاحة','🍎'],['B','Ball','كرة','⚽'],['C','Cat','قطة','🐱'],['D','Dog','كلب','🐶'],['E','Egg','بيضة','🥚'],['F','Fish','سمكة','🐟'],['G','Goat','ماعز','🐐'],['H','Horse','حصان','🐴'],['I','Insect','حشرة','🐛'],['J','Jacket','سترة','🧥'],['K','Key','مفتاح','🔑'],['L','Lion','أسد','🦁'],['M','Moon','قمر','🌙'],['N','Nest','عش','🪺'],['O','Orange','برتقالة','🍊'],['P','Pen','قلم','🖊️'],['Q','Queen','ملكة','👑'],['R','Rabbit','أرنب','🐰'],['S','Sun','شمس','☀️'],['T','Tree','شجرة','🌳'],['U','Uniform','زي موحّد','👔'],['V','Vase','مزهرية','🏺'],['W','Watch','ساعة يد','⌚'],['X','Fox','ثعلب','🦊'],['Y','Yak','ثور الياك','🐂'],['Z','Zebra','حمار وحشي','🦓']];
 // No common English word starts with X, so its word (Fox) is taught as ending with X.
 const ENDS={X:1};
@@ -362,7 +371,8 @@ const CATS=[
  {id:'letters',ar:'الحروف',ic:'🔤',items:LW.map(([L,w,ar,e])=>[L,ar,'L:'+L+L.toLowerCase(),L+'. '+(ENDS[L]?w+' ends with '+L:L+' for '+w),`<span class="big">${L} ${L.toLowerCase()}</span><br>${pic(L,'pic',90)}<br>${w} — ${ar}`])},
  {id:'sounds',ar:'أصوات الحروف',ic:'👂',items:LW.map(([L,w,ar,e])=>[L,ar,'L:'+L+L.toLowerCase(),w+'. '+w+(ENDS[L]?' ends with ':' starts with ')+L,`<span class="big">${L}</span><br>${pic(L,'pic',90)}<br>${w} ${ENDS[L]?'تنتهي':'تبدأ'} بحرف ${L}`,e])},
  {id:'numbers',ar:'الأرقام',ic:'num',items:[['one','واحد','N:1'],['two','اثنان','N:2'],['three','ثلاثة','N:3'],['four','أربعة','N:4'],['five','خمسة','N:5'],['six','ستة','N:6'],['seven','سبعة','N:7'],['eight','ثمانية','N:8'],['nine','تسعة','N:9'],['ten','عشرة','N:10']]},
- {id:'colors',ar:'الألوان',ic:'palette',items:[['red','أحمر','#e63946'],['blue','أزرق','#1d6fe0'],['yellow','أصفر','#ffd60a'],['green','أخضر','#2fb344'],['orange','برتقالي','#fb8500'],['pink','وردي','#ff8fb8'],['black','أسود','#1b1b1b'],['white','أبيض','#ffffff']]}
+ {id:'colors',ar:'الألوان',ic:'palette',items:[['red','أحمر','#e63946'],['blue','أزرق','#1d6fe0'],['yellow','أصفر','#ffd60a'],['green','أخضر','#2fb344'],['orange','برتقالي','#fb8500'],['pink','وردي','#ff8fb8'],['black','أسود','#1b1b1b'],['white','أبيض','#ffffff']]},
+ {id:'animals',ar:'الحيوانات',ic:'paw',items:ANI.map(([w,ar,k])=>[w,ar,'P:'+k,w,'',k])}
 ];
 const $=id=>document.getElementById(id);
 const ROUND=5;
@@ -412,9 +422,9 @@ function prefetch(...urls){
     fetch(u).then(r=>r.ok?r.blob():Promise.reject()).then(b=>BLOBS.set(u,URL.createObjectURL(b))).catch(()=>BLOBS.delete(u));
   });
 }
-function prefetchPic(...Ls){Ls.flat().forEach(L=>{const p=PICS[L];if(p&&!IMGS.has(p.s)){IMGS.add(p.s);new Image().src=p.s}})}
+function prefetchPic(...Ls){Ls.flat().forEach(L=>{const p=PICS[L]||APICS[L];if(p&&!IMGS.has(p.s)){IMGS.add(p.s);new Image().src=p.s}})}
 const vals=o=>Object.values(o);
-const ICON={"speaker": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M9 18.5h6.5L24 12v24l-8.5-6.5H9a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M30.5 18.5c2.4 3.4 2.4 7.6 0 11M35.5 13.5c4.8 6.3 4.8 14.7 0 21\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.6\" stroke-linecap=\"round\"/></svg>", "quiz": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><rect x=\"10\" y=\"9\" width=\"28\" height=\"33\" rx=\"7\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.6\"/><rect x=\"17\" y=\"5\" width=\"14\" height=\"8\" rx=\"4\" fill=\"currentColor\"/><path d=\"M17.5 26.5l5 5 8.5-10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "trace": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><g transform=\"rotate(45 26 22)\"><rect x=\"21\" y=\"2\" width=\"10\" height=\"27\" rx=\"3.5\" fill=\"currentColor\"/><path d=\"M21.5 31h9l-4.5 8.5z\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><rect x=\"21\" y=\"8\" width=\"10\" height=\"2.8\" fill=\"var(--tile,#f66155)\"/></g><path d=\"M3.5 44.5c2.8-.3 5-1.4 7-3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-dasharray=\".2 4.8\"/></svg>", "board": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M6.5 37 14.5 11l8 26M9.5 29h10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M29 9.5V37\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"35\" cy=\"30.5\" r=\"6.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\"/></svg>", "palette": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M24 7C13.5 7 6 14.6 6 23.8 6 33.5 13.2 41 21.6 41c3 0 4.2-2.1 3-4.7-1.1-2.3.4-4.6 3-4.6h5.6c5.3 0 8.8-3.6 8.8-8.9C42 14 34.2 7 24 7z\" fill=\"#fff6e6\"/><circle cx=\"15\" cy=\"22\" r=\"3.6\" fill=\"#f66155\"/><circle cx=\"21.5\" cy=\"14.5\" r=\"3.6\" fill=\"#83cee5\"/><circle cx=\"30.5\" cy=\"14.5\" r=\"3.6\" fill=\"#5dbb63\"/><circle cx=\"35\" cy=\"22.5\" r=\"3.6\" fill=\"#a678e8\"/></svg>", "num": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 17.5l4-3V34\"/><path d=\"M17 19a4.5 4.5 0 0 1 9 .3c0 4.2-9 7.7-9 14.7h9.5\"/><path d=\"M31.5 14.5h9l-5.2 6.4c3.3 0 5.7 2.4 5.7 6.1 0 3.8-2.6 6.5-6 6.5-2.1 0-3.7-.9-4.7-2.4\"/></g></svg>", "back": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M9 24h28M26 12l12 12-12 12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "replay": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M37.5 25.5A13.5 13.5 0 1 1 33.6 14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\"/><path d=\"M35.5 6.5v9h-9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "home": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M8 22.5 24 9l16 13.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M13 20v17a3 3 0 0 0 3 3h5.5v-9h5v9H32a3 3 0 0 0 3-3V20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"};
+const ICON={"paw": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><g fill=\"currentColor\"><ellipse cx=\"24\" cy=\"32\" rx=\"10.5\" ry=\"8.5\"/><ellipse cx=\"11.5\" cy=\"21.5\" rx=\"4.5\" ry=\"5.5\" transform=\"rotate(-20 11.5 21.5)\"/><ellipse cx=\"19\" cy=\"13\" rx=\"4.5\" ry=\"5.8\" transform=\"rotate(-8 19 13)\"/><ellipse cx=\"29\" cy=\"13\" rx=\"4.5\" ry=\"5.8\" transform=\"rotate(8 29 13)\"/><ellipse cx=\"36.5\" cy=\"21.5\" rx=\"4.5\" ry=\"5.5\" transform=\"rotate(20 36.5 21.5)\"/></g></svg>", "speaker": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><g transform=\"translate(-1.6 0)\"><path d=\"M10 20.2c0-1.5 1.2-2.7 2.7-2.7h4.6l7-6c1.4-1.2 3.6-.2 3.6 1.7v21.6c0 1.9-2.2 2.9-3.6 1.7l-7-6h-4.6A2.7 2.7 0 0 1 10 27.8z\" fill=\"currentColor\"/><path d=\"M32.6 19.2c1.4 1.3 2.2 3 2.2 4.8s-.8 3.5-2.2 4.8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.8\" stroke-linecap=\"round\"/><path d=\"M37.4 14.6c2.6 2.5 4 5.8 4 9.4s-1.4 6.9-4 9.4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.8\" stroke-linecap=\"round\"/></g></svg>", "quiz": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><rect x=\"10\" y=\"9\" width=\"28\" height=\"33\" rx=\"7\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.6\"/><rect x=\"17\" y=\"5\" width=\"14\" height=\"8\" rx=\"4\" fill=\"currentColor\"/><path d=\"M17.5 26.5l5 5 8.5-10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "trace": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><g transform=\"rotate(45 26 22)\"><rect x=\"21\" y=\"2\" width=\"10\" height=\"27\" rx=\"3.5\" fill=\"currentColor\"/><path d=\"M21.5 31h9l-4.5 8.5z\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><rect x=\"21\" y=\"8\" width=\"10\" height=\"2.8\" fill=\"var(--tile,#f66155)\"/></g><path d=\"M3.5 44.5c2.8-.3 5-1.4 7-3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-dasharray=\".2 4.8\"/></svg>", "board": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M6.5 37 14.5 11l8 26M9.5 29h10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M29 9.5V37\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"35\" cy=\"30.5\" r=\"6.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\"/></svg>", "palette": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M24 7C13.5 7 6 14.6 6 23.8 6 33.5 13.2 41 21.6 41c3 0 4.2-2.1 3-4.7-1.1-2.3.4-4.6 3-4.6h5.6c5.3 0 8.8-3.6 8.8-8.9C42 14 34.2 7 24 7z\" fill=\"#fff6e6\"/><circle cx=\"15\" cy=\"22\" r=\"3.6\" fill=\"#f66155\"/><circle cx=\"21.5\" cy=\"14.5\" r=\"3.6\" fill=\"#83cee5\"/><circle cx=\"30.5\" cy=\"14.5\" r=\"3.6\" fill=\"#5dbb63\"/><circle cx=\"35\" cy=\"22.5\" r=\"3.6\" fill=\"#a678e8\"/></svg>", "num": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 17.5l4-3V34\"/><path d=\"M17 19a4.5 4.5 0 0 1 9 .3c0 4.2-9 7.7-9 14.7h9.5\"/><path d=\"M31.5 14.5h9l-5.2 6.4c3.3 0 5.7 2.4 5.7 6.1 0 3.8-2.6 6.5-6 6.5-2.1 0-3.7-.9-4.7-2.4\"/></g></svg>", "back": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M9 24h28M26 12l12 12-12 12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "replay": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M37.5 25.5A13.5 13.5 0 1 1 33.6 14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\"/><path d=\"M35.5 6.5v9h-9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "home": "<svg viewBox=\"0 0 48 48\" aria-hidden=\"true\"><path d=\"M8 22.5 24 9l16 13.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M13 20v17a3 3 0 0 0 3 3h5.5v-9h5v9H32a3 3 0 0 0 3-3V20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"};
 document.querySelectorAll('[data-ic]').forEach(e=>e.insertAdjacentHTML('afterbegin',ICON[e.dataset.ic]));
 // One reusable <audio> per clip instead of a new one on every play.
 const PLAYERS=new Map();
@@ -429,22 +439,31 @@ function clip(src,then){
   try{a.currentTime=0}catch(e){}
   a.play().catch(cb);
 }
-function tts(x){try{const u=new SpeechSynthesisUtterance(x);u.lang='en-US';u.rate=.75;u.pitch=1.1;speechSynthesis.speak(u)}catch(e){}}
 function playSnd(L,then){clip(asset(AUDIO,L),then)}
-function pic(L,mode,h){
-  const p=PICS[L];if(!p)return '';
-  const fh=mode==='pic'?p.pf:1,H=Math.round(h),W=Math.round(h*p.w/(p.h*fh));
-  return `<span style="display:inline-block;width:${W}px;height:${H}px;max-width:100%;overflow:hidden;vertical-align:middle"><img src="${p.s}" alt="" decoding="async" draggable="false" style="display:block;width:${W}px;height:${Math.round(H/fh)}px;max-width:none"></span>`;
+// Pictures are drawn from crops of the source image, so the animal and its printed word are each
+// centred on their own (in the files the word often sits off to one side of the picture).
+// Sizes are in em: 1em = 1/100 of the drawing's height, so CSS can resize a picture by font-size alone.
+function pic(L,mode,h,small){
+  const p=PICS[L]||APICS[L];if(!p)return '';
+  const src=small&&p.t?p.t:p.s;
+  const cut=400*p.pf,k=100/(mode==='pic'?cut:400),pb=p.pb||[0,p.w],wb=p.wb||[0,cut,p.w,400];
+  const crop=(x0,y0,x1,y1)=>`<span class="pc" style="width:${((x1-x0)*k).toFixed(2)}em;height:${((y1-y0)*k).toFixed(2)}em"><img src="${src}" alt="" loading="lazy" decoding="async" draggable="false" style="width:${(p.w*k).toFixed(2)}em;height:${(400*k).toFixed(2)}em;margin-left:${(-x0*k).toFixed(2)}em;margin-top:${(-y0*k).toFixed(2)}em"></span>`;
+  const pw=pb[1]-pb[0],ww=wb[2]-wb[0];
+  if(mode==='pic')return `<span class="pf" style="font-size:${(h/100).toFixed(3)}px;--ar:${(pw/cut).toFixed(3)}">${crop(pb[0],0,pb[1],cut)}</span>`;
+  // full: picture on top, its word centred underneath, keeping the original spacing
+  return `<span class="pf full" style="font-size:${(h/100).toFixed(3)}px;--ar:${(Math.max(pw,ww)/400).toFixed(3)}">${crop(pb[0],0,pb[1],wb[1])}${crop(wb[0],wb[1],wb[2],wb[3])}</span>`;
 }
 function playNum(k,then){clip(asset(NUMAUDIO,k),then)}
 function playWord(L,then){clip(asset(WORDAUDIO,L),then)}
 function playColor(k,then){clip(asset(COLORAUDIO,k),then)}
+function playAnimal(k,then){clip(asset(ANIAUDIO,k),then)}
 function studySay(L){playSnd(L,()=>later(()=>playWord(L),250))}
 function speak(t,then){
   const a=cat&&cat.items.find(i=>i[0]===t);
   if(cat&&cat.id==='sounds'&&WORDAUDIO[t]){playWord(t,then);return}
   if(cat&&(cat.id==='sounds'||cat.id==='letters')&&AUDIO[t]){playSnd(t,then);return}
-  if(cat&&(cat.id==='count'||cat.id==='colorword')&&!locked){if(then)then();return}   // don't say the answer before it is picked
+  if(cat&&(cat.id==='count'||cat.id==='colorword'||cat.id==='aniword')&&!locked){if(then)then();return}
+  if(cat&&(cat.id==='animals'||cat.id==='aniword')&&ANIAUDIO[t]){playAnimal(t,then);return}   // don't say the answer before it is picked
   if(cat&&cat.id==='colorword'&&COLORAUDIO[t]){playColor(t,then);return}
   if(cat&&/^(numbers|count|numpics)$/.test(cat.id)&&NUMAUDIO[t]){playNum(t,then);return}
   if(cat&&cat.id==='colors'&&COLORAUDIO[t]){playColor(t,then);return}
@@ -486,6 +505,7 @@ function home(){
     b.setAttribute('aria-label',`${c.ar}: عرفتُ ${known(c)} من ${count(c.items.length,...unitOf(c))}`);
     b.onclick=()=>start(c);
     if(c.id==='colors')b.onclick=()=>openBoard('C');
+    if(c.id==='animals')b.onclick=()=>openBoard('A');
     if(c.id==='numbers'){b.querySelector('small').textContent='1 — 10';b.setAttribute('aria-label','لوحة الأرقام');b.onclick=()=>openBoard('N')}
     $('cats').appendChild(b);
   });
@@ -497,7 +517,9 @@ let cat,qs,qi,score,answer,locked,prompt='',qcat=[],lq=null,baseCat=null;
 const NW=[['1','one','واحد','A'],['2','two','اثنان','B'],['3','three','ثلاثة','C'],['4','four','أربعة','D'],['5','five','خمسة','E'],['6','six','ستة','F'],['7','seven','سبعة','G'],['8','eight','ثمانية','H'],['9','nine','تسعة','I'],['10','ten','عشرة','J']];
 let kind='L';                       // which board is open: 'L' letters, 'N' numbers, 'C' colors
 const COLORS=()=>CATS.find(c=>c.id==='colors');
-const LIST=()=>kind==='N'?NW:kind==='C'?COLORS().items:LW;
+const ANIMALS=()=>CATS.find(c=>c.id==='animals');
+const BOARDONLY=()=>kind==='C'||kind==='A';   // boards without a study page
+const LIST=()=>kind==='N'?NW:kind==='C'?COLORS().items:kind==='A'?ANIMALS().items:LW;
 const KEYOF=i=>LIST()[i][0];
 const wrap=i=>(i+LIST().length)%LIST().length;
 function countPic(n,L,h,cols){return '<span class="cnt"'+(cols?' style="display:grid;grid-template-columns:repeat('+cols+',auto)"':'')+'>'+Array.from({length:n},()=>pic(L,'pic',h)).join('')+'</span>'}
@@ -507,7 +529,7 @@ const cntSize=(n,big)=>big?(n<2?110:n<3?78:n<5?60:n<7?48:38):(n<2?60:n<3?42:n<5?
 const NUMQ={id:'numbers',ar:'الأرقام',items:NW.map(([d,w,ar])=>[w,ar,'N:'+d,w,`<span class="big">${d}</span><br>${w} — ${ar}`])};
 const COUNTQ={id:'count',ar:'الأرقام',items:NW.map(([d,w,ar,L])=>[w,ar,'N:'+d,w,`<span class="big">${d}</span><br>${w} — ${ar}`,L])};
 const NPICQ={id:'numpics',ar:'الأرقام',items:NW.map(([d,w,ar,L])=>[w,ar,'C:'+d+':'+L,w,`<span class="big">${d}</span><br>${w} — ${ar}`])};
-function sayIdx(i,then){kind==='N'?playNum(NW[i][1],then):kind==='C'?playColor(COLORS().items[i][0],then):playSnd(LW[i][0],then)}
+function sayIdx(i,then){kind==='N'?playNum(NW[i][1],then):kind==='C'?playColor(COLORS().items[i][0],then):kind==='A'?playAnimal(ANI[i][0],then):playSnd(LW[i][0],then)}
 const shuffle=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 
 function start(c){
@@ -518,7 +540,8 @@ function start(c){
   const rest=shuffle(c.items.filter(i=>k.includes(i[0])));
   qs=fresh.concat(rest).slice(0,ROUND);
   const ks=qs.map(q=>q[0]);
-  prefetch(vals(PRAISE),ks.map(x=>c.id==='letters'?AUDIO[x]:c.id==='sounds'?WORDAUDIO[x]:c.id==='numbers'?NUMAUDIO[x]:c.id==='colors'?COLORAUDIO[x]:null));
+  prefetch(vals(PRAISE),ks.map(x=>c.id==='letters'?AUDIO[x]:c.id==='sounds'?WORDAUDIO[x]:c.id==='numbers'?NUMAUDIO[x]:c.id==='colors'?COLORAUDIO[x]:c.id==='animals'?ANIAUDIO[x]:null));
+  if(c.id==='animals')prefetchPic(qs.map(q=>q[5]));
   if(c.id==='letters'||c.id==='sounds')prefetchPic(ks);
   run();
 }
@@ -534,7 +557,7 @@ function startLetter(i){
 function startNumber(i){
   lq=(i+10)%10;const [d,w,ar,L]=NW[lq];
   qcat=[NUMQ,COUNTQ,NPICQ];qs=qcat.map(c=>c.items[lq]);cat=qcat[0];
-  prefetch(vals(PRAISE),NUMAUDIO[w]);prefetchPic(NW.map(x=>x[3]));
+  prefetch(vals(PRAISE),NUMAUDIO[w]);prefetchPic(L);
   run();
 }
 // Quiz on one color: hear it, name it from its color, hear it again.
@@ -545,8 +568,16 @@ function startColor(i){
   prefetch(vals(PRAISE),COLORAUDIO[C.items[lq][0]]);
   run();
 }
-const startQuiz=i=>kind==='N'?startNumber(i):kind==='C'?startColor(i):startLetter(i);
-const QKEY=()=>({L:'quiz',N:'nquiz',C:'cquiz'})[kind];
+// Quiz on one animal: hear it, name it from its picture, hear it again.
+function startAnimal(i){
+  kind='A';const A=ANIMALS();lq=(i+A.items.length)%A.items.length;
+  const WORDQ={id:'aniword',ar:A.ar,items:A.items.map(([w,ar,p,x,h,k])=>[w,ar,'W:'+w,w,'',k])};
+  qcat=[A,WORDQ,A];qs=qcat.map(c=>c.items[lq]);cat=qcat[0];
+  prefetch(vals(PRAISE),ANIAUDIO[A.items[lq][0]]);prefetchPic(ANI[lq][2]);
+  run();
+}
+const startQuiz=i=>kind==='N'?startNumber(i):kind==='C'?startColor(i):kind==='A'?startAnimal(i):startLetter(i);
+const QKEY=()=>({L:'quiz',N:'nquiz',C:'cquiz',A:'aquiz'})[kind];
 function run(){
   qi=0;score=0;
   show('game');
@@ -561,15 +592,16 @@ function ask(){
   answer=qs[qi];
   const others=shuffle(cat.items.filter(i=>i[0]!==answer[0]&&!(cat.id==='sounds'&&(SAMESOUND[answer[0]]||'').includes(i[0])))).slice(0,2);
   const opts=shuffle([answer,...others]);
-  $('say').classList.toggle('hide',cat.id==='count'||cat.id==='colorword');
-  prompt=cat.id==='colorword'?`<span class="bigsw" style="background:${answer[5]}"></span><br>ما اسم هذا اللون؟`:cat.id==='colors'?'أي لون سمعت؟ اضغط على السماعة':cat.id==='count'?`${countPic(+answer[2].slice(2),answer[5],cntSize(+answer[2].slice(2),true))}<br>كم عددها؟`:cat.id==='numbers'?'أي رقم سمعت؟ اضغط على السماعة':cat.id==='numpics'?'أي صورة فيها العدد الذي سمعته؟ اضغط على السماعة':cat.id==='sounds'?`${pic(answer[0],'pic',150)||`<span class="big">${answer[5]}</span>`}<br>ما الحرف الذي ${ENDS[answer[0]]?'<b>تنتهي</b>':'تبدأ'} به هذه الكلمة؟`:cat.id==='letters'?'أي حرف سمعت؟ اضغط على السماعة':'ما هذه الكلمة؟ اضغط على السماعة';
+  $('say').classList.toggle('hide',cat.id==='count'||cat.id==='colorword'||cat.id==='aniword');
+  prompt=cat.id==='aniword'?`<span class="apanel">${pic(answer[5],'pic',140)}</span><br>ما اسم هذا الحيوان؟`:cat.id==='animals'?'أي حيوان سمعت؟ اضغط على السماعة':cat.id==='colorword'?`<span class="bigsw" style="background:${answer[5]}"></span><br>ما اسم هذا اللون؟`:cat.id==='colors'?'أي لون سمعت؟ اضغط على السماعة':cat.id==='count'?`${countPic(+answer[2].slice(2),answer[5],cntSize(+answer[2].slice(2),true))}<br>كم عددها؟`:cat.id==='numbers'?'أي رقم سمعت؟ اضغط على السماعة':cat.id==='numpics'?'أي صورة فيها العدد الذي سمعته؟ اضغط على السماعة':cat.id==='sounds'?`${pic(answer[0],'pic',150)||`<span class="big">${answer[5]}</span>`}<br>ما الحرف الذي ${ENDS[answer[0]]?'<b>تنتهي</b>':'تبدأ'} به هذه الكلمة؟`:cat.id==='letters'?'أي حرف سمعت؟ اضغط على السماعة':'ما هذه الكلمة؟ اضغط على السماعة';
   $('msg').innerHTML=prompt;
   $('opts').innerHTML='';
   opts.forEach(o=>{
     const b=document.createElement('button');
     b.className='opt';
     b.setAttribute('aria-label',/^[LS]:/.test(o[2])?o[0]:o[1]);
-    b.innerHTML=o[2].startsWith('#')?`<span class="sw" style="background:${o[2]}"></span>`:o[2].startsWith('L:')?`<span class="lt">${o[2].slice(2,3)} ${o[2].slice(3)}</span>`:o[2].startsWith('N:')||o[2].startsWith('S:')?`<span class="lt">${o[2].slice(2)}</span>`:o[2].startsWith('C:')?optCount(+o[2].split(':')[1],o[2].split(':')[2]):o[2].startsWith('W:')?`<span class="lt cwd">${o[2].slice(2)}</span>`:o[2];
+    b.innerHTML=o[2].startsWith('#')?`<span class="sw" style="background:${o[2]}"></span>`:o[2].startsWith('L:')?`<span class="lt">${o[2].slice(2,3)} ${o[2].slice(3)}</span>`:o[2].startsWith('N:')||o[2].startsWith('S:')?`<span class="lt">${o[2].slice(2)}</span>`:o[2].startsWith('C:')?optCount(+o[2].split(':')[1],o[2].split(':')[2]):o[2].startsWith('W:')?`<span class="lt cwd">${o[2].slice(2)}</span>`:o[2].startsWith('P:')?`<span class="opic">${pic(o[2].slice(2),'full',100,true)}</span>`:o[2];
+    if(o[2].startsWith('P:'))b.classList.add('picopt');
     b.onclick=()=>pick(b,o);
     $('opts').appendChild(b);
   });
@@ -616,6 +648,7 @@ function letterResult(i,mode,got,of){
   const isCat=mode==='cat';
   show('end');
   if(isCat)$('lendL').innerHTML=`<span class="lend-ic ${baseCat.id}">${ICON[baseCat.ic]||''}</span>`;
+  else if(kind==='A'){const a=ANI[i];$('lendL').innerHTML=`<span class="lend-ap">${pic(a[2],'pic',70)}</span><span class="lend-cw">${a[0]}</span>`}
   else if(kind==='C'){const c=COLORS().items[i];$('lendL').innerHTML=`<span class="lend-sw" style="background:${c[2]}"></span><span class="lend-cw">${c[0]}</span>`}
   else{const L=KEYOF(i);$('lendL').textContent=kind==='N'?L:L+' '+L.toLowerCase()}
   $('lendS').innerHTML=Array.from({length:of},(_,k)=>`<i class="st${k<got?'':' off'}"></i>`).join('');
@@ -623,12 +656,12 @@ function letterResult(i,mode,got,of){
   const again=mode==='trace'?'أعد الكتابة':isCat?'العب مرة أخرى':'أعد الاختبار';
   $('lagain').setAttribute('aria-label',again);$('lagain').title=again;
   // second button: letter board after a letter, main menu after colors / numbers
-  const nb=isCat||kind==='C'?['palette','لوحة الألوان']:kind==='N'?['num','لوحة الأرقام']:['board','لوحة الحروف'];
+  const nb=isCat||BOARDONLY()?(kind==='A'?['paw','لوحة الحيوانات']:['palette','لوحة الألوان']):kind==='N'?['num','لوحة الأرقام']:['board','لوحة الحروف'];
   $('lback').innerHTML=ICON[nb[0]];$('lback').setAttribute('aria-label',nb[1]);$('lback').title=nb[1];
-  $('autoTxt').textContent=isCat||kind==='C'?'نعود إلى لوحة الألوان…':kind==='N'?'نعود إلى الرقم…':'نعود إلى الحرف…';
+  $('autoTxt').textContent=isCat||BOARDONLY()?(kind==='A'?'نعود إلى لوحة الحيوانات…':'نعود إلى لوحة الألوان…'):kind==='N'?'نعود إلى الرقم…':'نعود إلى الحرف…';
   const f=$('autofill');f.style.transition='none';f.style.transform='scaleX(0)';void f.offsetWidth;
   f.style.transition='transform 5s linear';f.style.transform='scaleX(1)';
-  later(()=>isCat||kind==='C'?openBoard('C'):openStudy(i),5000);
+  later(()=>isCat||BOARDONLY()?openBoard():openStudy(i),5000);
 }
 
 let from='home',si=0;
@@ -654,15 +687,22 @@ function addBoard(){
   b.onclick=()=>openBoard('L');$('cats').appendChild(b);
 }
 function openBoard(k){
-  if(k==='L'||k==='N'||k==='C')kind=k;
+  if(k==='L'||k==='N'||k==='C'||k==='A')kind=k;
   show('board');
-  $('board').querySelector('h1').textContent=kind==='N'?'لوحة الأرقام':kind==='C'?'لوحة الألوان':'لوحة الحروف';
-  $('bgrid').classList.toggle('nums',kind==='N');$('bgrid').classList.toggle('colors',kind==='C');
-  $('bquiz').classList.toggle('hide',kind!=='C');
-  prefetch(kind==='N'?vals(NUMAUDIO):kind==='C'?vals(COLORAUDIO):vals(AUDIO));
+  $('board').querySelector('h1').textContent=kind==='N'?'لوحة الأرقام':kind==='C'?'لوحة الألوان':kind==='A'?'لوحة الحيوانات':'لوحة الحروف';
+  $('bgrid').classList.toggle('nums',kind==='N');$('bgrid').classList.toggle('colors',kind==='C');$('bgrid').classList.toggle('animals',kind==='A');
+  $('bquiz').classList.toggle('hide',!BOARDONLY());
+  {const t=kind==='A'?'العب بالحيوانات':'العب بالألوان';$('bquiz').setAttribute('aria-label',t);$('bquiz').title=t}
   $('bgrid').innerHTML='';
   LIST().forEach((x,i)=>{
     const b=document.createElement('button');
+    if(kind==='A'){
+      // animals: picture + name; tap opens that animal's quiz
+      b.innerHTML='<span class="apic">'+pic(ANI[i][2],'full',100,true)+'</span>';b.setAttribute('aria-label',x[0]+' — '+x[1]);
+      if((prog.aquiz||[]).includes(x[0])||(prog.animals||[]).includes(x[0]))b.className='done';
+      b.onclick=()=>{stopAll();startAnimal(i)};
+      $('bgrid').appendChild(b);return;
+    }
     if(kind==='C'){
       // colors: tap to hear the name
       b.innerHTML='<span class="sw" style="background:'+x[2]+'"></span><span class="cw">'+x[0]+'</span>';b.setAttribute('aria-label',x[0]+' — '+x[1]);
@@ -722,11 +762,12 @@ function playNext(){
 $('bplay').onclick=()=>{
   if(playing){stopAll();return}
   playing=true;pi=0;
+  prefetch(kind==='N'?vals(NUMAUDIO):kind==='C'?vals(COLORAUDIO):kind==='A'?vals(ANIAUDIO):vals(AUDIO));
   $('bplay').innerHTML=ICON_STOP;
   playNext();
 };
 $('bback').onclick=()=>{stopAll();home()};
-$('bquiz').onclick=()=>{stopAll();kind='C';start(COLORS())};
+$('bquiz').onclick=()=>{stopAll();start(kind==='A'?ANIMALS():COLORS())};
 $('sback').onclick=()=>{stopAll();openBoard()};
 $('squiz').onclick=()=>startQuiz(si);
 $('sprev').onclick=()=>leave(-1);
@@ -804,9 +845,9 @@ $('tclr').onclick=setupTrace;
 $('tsay').onclick=()=>sayIdx(ti);
 $('tback').onclick=()=>from==='study'?openStudy(ti):home();
 $('say').onclick=()=>speak(answer[0]);
-$('back').onclick=()=>lq!==null&&kind!=='C'?openStudy(lq):openBoard('C');
+$('back').onclick=()=>BOARDONLY()?openBoard():lq!==null?openStudy(lq):home();
 $('lagain').onclick=()=>endMode==='trace'?(from='study',lower=false,openTrace(endIdx)):endMode==='cat'?start(baseCat):startQuiz(endIdx);
-$('lback').onclick=()=>endMode==='cat'?openBoard('C'):openBoard();
+$('lback').onclick=()=>openBoard();
 let pausedSnd=null;
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden){

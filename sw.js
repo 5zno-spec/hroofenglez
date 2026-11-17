@@ -1,6 +1,6 @@
 // أهلًا ABC: offline support.
 // Change VERSION whenever you replace a sound or image, so devices fetch the new file.
-const VERSION='ahlan-abc-v6';
+const VERSION='ahlan-abc-v7';
 const CORE=['./','index.html','manifest.webmanifest','images/logo.webp','images/icon-192.png','images/icon-512.png','images/apple-touch-icon.png'];
 
 self.addEventListener('install',e=>{
