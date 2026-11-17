@@ -385,7 +385,30 @@ const unitOf=c=>c.id==='letters'||c.id==='sounds'?['حرفًا واحدًا','ح
 let gen=0;
 function hush(){try{speechSynthesis.cancel()}catch(e){}if(curSnd){curSnd.onended=null;curSnd.onerror=null;curSnd.pause()}}
 function later(fn,ms){const g=gen;return setTimeout(()=>{if(g===gen)fn()},ms)}
-function show(id){gen++;hush();document.querySelectorAll('.pb').forEach(e=>e.remove());['home','game','end','trace','board','study'].forEach(s=>$(s).classList.toggle('hide',s!==id))}
+function show(id){
+  gen++;hush();document.querySelectorAll('.pb').forEach(e=>e.remove());['home','game','end','trace','board','study'].forEach(s=>$(s).classList.toggle('hide',s!==id));
+  screen=id;
+  // keep one history entry above the home screen, so the phone's back button steps back inside the game
+  if(popping)return;
+  const g=history.state&&history.state.g;
+  if(id==='home'){if(g){skipPop=true;history.back()}}
+  else if(!g)history.pushState({g:1},'');
+}
+// Back button / back gesture: go to the previous screen; only from the home screen does it leave the game.
+let screen='home',popping=false,skipPop=false;
+function goBack(){
+  if(screen==='game')$('back').onclick();
+  else if(screen==='study')$('sback').onclick();
+  else if(screen==='board')$('bback').onclick();
+  else if(screen==='trace')$('tback').onclick();
+  else if(screen==='end')endMode==='cat'||BOARDONLY()?openBoard():openStudy(endIdx);
+}
+addEventListener('popstate',()=>{
+  if(skipPop){skipPop=false;return}
+  if(screen==='home')return;
+  popping=true;goBack();popping=false;
+  if(screen!=='home')history.pushState({g:1},'');
+});
 
 const PR=[['mmtaz','ممتاز'],['batal','بطل'],['ra2e3','رائع'],['barak','بارك الله فيك'],['a7sabnt','أحسنت']];
 let lastPr=-1;
